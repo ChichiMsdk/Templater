@@ -1,9 +1,9 @@
 #ifndef TEMPLATER_H
 #define TEMPLATER_H
 
-/* TODO: Instead, get these from files.. easier. */
+/* @Todo: Instead, get these from files.. easier. */
 
-char* g_template_source =
+char *g_template_source =
 "#define SUB_CONSOLE\n"
 "#include \"chihab.h\"\n"
 "#include \"cm_io.c\"\n"
@@ -14,7 +14,7 @@ char* g_template_source =
 "  RETURN_FROM_MAIN(EXIT_SUCCESS);\n"
 "}";
 
-char* g_template_build = 
+char *g_template_build = 
 "@echo off\n"
 "setlocal\n"
 "cd /D \"%%~dp0\"\n"

@@ -24,7 +24,6 @@ strlengths_impl(char* str, ...)
 }
 
 #define strlengths(str, ...) strlengths_impl(str, __VA_ARGS__, NULL)
-
 #define REAL_MAX_PATH 32767
 
 i32

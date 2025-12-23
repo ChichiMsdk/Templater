@@ -37,7 +37,7 @@ main(i32 argc, char** argv)
   source    = (argc >= 3) ? argv[2] : "main";
   extension = (argc >= 4) ? argv[3] : "exe";
 
-  if (argc < 2) {printf("templater <program> <source_file> <extension>\n");}
+  if (argc < 2) { printf("templater <program> <source_file> <extension>\n"); }
   printf("Generating source '%s.c' for program '%s.%s'\n", source, program, extension);
 
   /* @Note: Create the build file */

@@ -1,4 +1,4 @@
-/* NOTE: Generate a build.bat and folder src/main.c for new project */
+/* @Note: Generate a build.bat and folder src/main.c for new project */
 
 #define SUB_CONSOLE
 #include "chihab.h"
@@ -12,12 +12,13 @@
 u64 
 strlengths_impl(char* str, ...)
 {
+  u64     total_size;
+  char*   first;
   va_list args;
-  va_start(args, str);
-  char* first;
-  u64 total_size = strlen(str);
-  while ((first = va_arg(args, char*))) total_size += strlen(first);
 
+  va_start(args, str);
+  total_size = strlen(str);
+  while ((first = va_arg(args, char*))) total_size += strlen(first);
   va_end(args);
   return total_size;
 }
@@ -40,7 +41,7 @@ main(i32 argc, char** argv)
   if (argc < 2) {printf("templater <program> <source_file> <extension>\n");}
   printf("Generating source '%s.c' for program '%s.%s'\n", source, program, extension);
 
-  /* NOTE: Create the build file */
+  /* @Note: Create the build file */
   {
     template_len = strlengths(g_template_build, source, program, extension) + 1;
     heap_alloc_dz(sizeof(char) * template_len, build_file);
@@ -53,7 +54,7 @@ main(i32 argc, char** argv)
   append = "bin";
   {
     hypot_size = cwd_size + strlen(append) + 2;
-    /* FIXME: Is this even correct?!..*/
+    /* @FixMe: Is this even correct?!.. */
     hypot_size = (hypot_size >= REAL_MAX_PATH - 2) ? REAL_MAX_PATH - 2 : hypot_size;
     wnsprintf(&path[cwd_size], hypot_size, "\\%s", append);
 

@@ -126,7 +126,7 @@ char* g_template_build =
 "\n"
 "rem -- Libraries ----------------------------------------------------------------------\n"
 "rem set d3d12libs=d3dcompiler.lib D3D12.lib dxgi.lib dxguid.lib dwmapi.lib \n"
-"set win_libs=Shlwapi.lib Ole32.lib Kernel32.lib User32.lib Gdi32.lib Credui.lib\n"
+"set win_libs=uuid.lib Shlwapi.lib Ole32.lib Kernel32.lib User32.lib Gdi32.lib Credui.lib\n"
 "set libs=%%win_libs%% %%c_libs%% %%d3d12libs%% %%crt_libs%% %%weblibs%%\n"
 "\n"
 "set l_all=%%l_debug%% %%l_options%% %%libs%% %%l_delay%% %%l_opti%%\n"
@@ -155,6 +155,6 @@ char* g_template_build =
 "rem longsure raddbg --auto-run\n"
 "\n"
 "rem -- Misc ---------------------------------------------------------------------------\n"
-"rem ctags -f tags --langmap=c:.c.h --languages=c -R src\n";
+"ctags -f tags --langmap=c:.c.h --languages=c -R src\n";
 
 #endif // TEMPLATER_H

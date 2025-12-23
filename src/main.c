@@ -5,6 +5,7 @@
 #include "cm_string.c"
 #include "cm_io.c"
 #include "cm_win32.c"
+#include "cm_memory.c"
 
 #include "templater.h"
 
@@ -28,15 +29,13 @@ strlengths_impl(char* str, ...)
 i32
 main(i32 argc, char** argv)
 { 
-  cmFile  file        = {0};
-
   char  *append, *path;
   char  *source, *program, *extension, *build_file;
   u32   template_len, cwd_size, hypot_size;
 
-  source     = (argc >= 3) ? argv[2] : "main";
-  program    = (argc >= 2) ? argv[1] : "default";
-  extension  = (argc >= 4) ? argv[3] : "exe";
+  program   = (argc >= 2) ? argv[1] : "default";
+  source    = (argc >= 3) ? argv[2] : "main";
+  extension = (argc >= 4) ? argv[3] : "exe";
 
   if (argc < 2) {printf("templater <program> <source_file> <extension>\n");}
   printf("Generating source '%s.c' for program '%s.%s'\n", source, program, extension);
@@ -77,7 +76,7 @@ main(i32 argc, char** argv)
     hypot_size = cwd_size + strlen(append) + 2;
     hypot_size = (hypot_size >= REAL_MAX_PATH - 2) ? REAL_MAX_PATH - 2 : hypot_size;
     wnsprintf(path + cwd_size, hypot_size, "\\%s", append);
-    if (!file_dump(path, build_file, template_len, &file)) printf("Finished writing to %s\n", path);
+    if (!file_dump(path, build_file, template_len)) printf("Finished writing to %s\n", path);
     else printf("Something went wrong when dumping to %s..\n", path);
   }
 
@@ -86,7 +85,7 @@ main(i32 argc, char** argv)
     hypot_size = cwd_size + strlen(append) + strlen(source) + 1 + 2 + 2;
     hypot_size = (hypot_size >= REAL_MAX_PATH - 2) ? REAL_MAX_PATH - 2 : hypot_size;
     wnsprintf(path + cwd_size, hypot_size, "\\%s\\%s.c", append, source);
-    if (!file_dump(path, g_template_source, strlen(g_template_source), &file)) printf("Finished writing to %s\n", path);
+    if (!file_dump(path, g_template_source, strlen(g_template_source))) printf("Finished writing to %s\n", path);
     else printf("Something went wrong when dumping to %s..\n", path);
   }
 
@@ -97,10 +96,12 @@ main(i32 argc, char** argv)
 
 ENTRY
 {
-  _Command_Line cl = {0};
+  i32           return_value;
+  _Command_Line cl;
+
   if (!command_line_args_ansi(&cl)) {printf("Failed retrieving command line\n"); RETURN_FROM_MAIN(EXIT_FAILURE);}
 
-  i32 return_value = main(cl.argc, cl.argv);
+  return_value = main(cl.argc, cl.argv);
 
   RETURN_FROM_MAIN((u32)return_value);
 }

@@ -138,4 +138,4 @@ rem -- Launch it ---------------------------------------------------------------
 rem longsure raddbg --auto-run
 
 rem -- Misc ---------------------------------------------------------------------------
-rem ctags -f tags --langmap=c:.c.h --languages=c -R src
+ctags -f tags --langmap=c:.c.h --languages=c -R src
